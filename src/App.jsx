@@ -1,4 +1,5 @@
 import { Component } from 'react';
+import FilmsList from './components/filmsList';
 import './App.css';
 
 class App extends Component {
@@ -25,13 +26,13 @@ class App extends Component {
   render() {
     return (
       <div className="App">
-        <h1>List</h1>
+        <h1>TO-DO List</h1>
         <form onSubmit={this.onSubmit}>
-        <label htmlFor="text">Make a list: &nbsp;</label>
+        <label htmlFor="listInput">Add Something: &nbsp;</label>
         <input 
-          id="text"
+          id="listInput"
           type="text"
-          name="text" 
+          name="listInput" 
           maxLength="40"
           value={this.state.text}
           onChange={(e) => {
@@ -42,11 +43,13 @@ class App extends Component {
         &nbsp;
         <button type="submit">&nbsp;Add</button>
       </form>
-          <ul id="list">
+          <ul className="list">
               {this.state.list.map((item, id) => {
                 return <li key={item + id}>{item}</li>;
               })}
           </ul>
+          <h2>Studio Ghibli Films</h2>
+          <FilmsList />
       </div>
     );
   }
