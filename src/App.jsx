@@ -1,58 +1,42 @@
-import { Component } from 'react';
+import { useState } from 'react';
 import FilmsList from './components/filmsList';
 import './App.css';
 
-class App extends Component {
-  constructor(props) {
-    super(props);
+export default function App(props) {
+  const [list, setList] = useState(["ready","set","go"]);
+  const [text, setText] = useState("");
 
-    this.state = {
-      list: [],
-      text: ""
-    }
+  function onSubmit(e) {
+    e.preventDefault();
 
-    this.onSubmit = this.onSubmit.bind(this);
+    setList([...list, text]);
+    setText("");
   }
 
-  onSubmit(event) {
-    event.preventDefault();
-
-    this.setState({
-      list: [...this.state.list, this.state.text],
-      text: ""
-    })
-  }
-
-  render() {
-    return (
-      <div className="App">
-        <h1>TO-DO List</h1>
-        <form onSubmit={this.onSubmit}>
+  return (
+    <div className="App">
+      <h1>TO-DO List</h1>
+      <form onSubmit={onSubmit}>
         <label htmlFor="listInput">Add Something: &nbsp;</label>
         <input 
           id="listInput"
           type="text"
           name="listInput" 
           maxLength="40"
-          value={this.state.text}
+          value={text}
           onChange={(e) => {
-            this.setState({
-              text: e.target.value
-            })
+            setText(e.target.value);
           }}/>
         &nbsp;
         <button type="submit">&nbsp;Add</button>
       </form>
-          <ul className="list">
-              {this.state.list.map((item, id) => {
-                return <li key={item + id}>{item}</li>;
-              })}
-          </ul>
-          <h2>Studio Ghibli Films</h2>
-          <FilmsList />
-      </div>
-    );
-  }
+      <ul className="list">
+          {list.map((item, id) => {
+            return <li key={item + id}>{item}</li>;
+          })}
+      </ul>
+      <h2>Studio Ghibli Films</h2>
+      <FilmsList />
+    </div>
+  );
 }
-
-export default App;
