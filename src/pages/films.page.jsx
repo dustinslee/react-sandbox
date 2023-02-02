@@ -54,6 +54,7 @@ export default function FilmsPage(props) {
             </li>
           )
         })}
+        {list.length === 0 && <p className="loading">Loading...</p>}
       </ul>
     </div>
   );
